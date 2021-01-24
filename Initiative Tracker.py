@@ -46,25 +46,16 @@ def pop_up(message):
 
 
 def enemy_types():
-    while True:
-        totalentyp = input('Number of Enemies Types: ').strip()
-        try:
-            test = int(totalentyp)
-            break
-        except ValueError:
-            print('Only accepts Integer')
+    noenemytyp = getinteger('Number of Enemies Types: ')
+    return noenemytyp
 
+
+def number_per_typ(totalentyp):
     typdict = {}
-    for j in range(0, int(totalentyp)):
-        while True:
-            enemytyp = input('Typ of enemy: ')
-            totalenemies = input(f'Number of {enemytyp}: ').strip()
-            try:
-                test = int(totalenemies)
-                break
-            except ValueError:
-                print('Only accepts Integer')
 
+    for j in range(0, totalentyp):
+        enemytyp = input('Typ of enemy: ')
+        totalenemies = getinteger(f'Number of {enemytyp}: ')
         typdict[enemytyp] = int(totalenemies)
 
     return typdict
@@ -72,19 +63,8 @@ def enemy_types():
 
 # adds enemys
 def addenemy(totalen):
-
-    # Proves how many enemys and iputs stats
-    while True:
-        stats = input('Initiative Bonus').strip()
-
-        # Initiative Bonus is a Int
-        try:
-            int(stats)
-            enemy = Enemies(totalen, stats)
-            break
-        except ValueError:
-            print('Only Accepts Integers')
-
+    initiativebous = getinteger('Initiative Bonus: ')
+    enemy = Enemies(totalen, initiativebous)
     return enemy
 
 
@@ -95,10 +75,13 @@ def enemyini(initiativebonus):
     return initiative
 
 
-# Sums their roll with initiative bonus
-def getinitiativeplayer(initiativebonus, roll):
-    intiative = initiativebonus + roll
-    return intiative
+def getinteger(message):
+    integer = input(message).strip()
+    try:
+        integer = int(integer)
+    except ValueError:
+        print('Only accepts Integer')
+    return integer
 
 
 if __name__ == "__main__":
@@ -116,7 +99,8 @@ if __name__ == "__main__":
     # program loop only quit when input s q
     while True:
         phase = input('Start')
-        enemydic = enemy_types()
+        noenemytypes = enemy_types()
+        enemydic = number_per_typ(noenemytypes)
         enemieslist = []
 
         for EnemyTyp in enemydic:
@@ -130,18 +114,13 @@ if __name__ == "__main__":
         # Get and make the initiative dictionary to save every enemy and there initiative
         initiativelist = {}
         for x in range(0, len(enemieslist)):
-            initiativelist[enemieslist[x]] = enemyini(int(enemieslist[x].initiativebonus))
+            initiativelist[enemieslist[x]] = enemyini(enemieslist[x].initiativebonus)
 
         # Sort and calculate every player initiative and check if roll is valid.
         for x in listplayers:
-            while True:
-                playerroll = input(f'{x.name} Roll: ')
-                try:
-                    test = int(playerroll)
-                    initiativelist[x] = int(playerroll)
-                    break
-                except ValueError:
-                    print('Only accepts Integer')
+            playerroll = getinteger(f'{x.name} Roll: ')
+            initiativelist[x] = playerroll
+
         orderddic = sorted(initiativelist.items(), key=lambda kv: (float(kv[1]), str(kv[0])))
 
         # list of sorted initiatives
