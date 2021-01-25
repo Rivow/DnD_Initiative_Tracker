@@ -1,6 +1,5 @@
 import GUI
 import random
-from tkinter import *
 
 
 class Character:
@@ -15,35 +14,6 @@ class Enemies(Character):
     def __init__(self, name, initiativebonus):
         super().__init__(name)
         self.initiativebonus = initiativebonus
-
-
-def pop_up(message):
-
-    root = Tk()
-    root.title('Initiative')
-    w = 800  # popup window width
-    h = 600  # popup window height
-    sw = root.winfo_screenwidth()
-    sh = root.winfo_screenheight()
-    x = (sw - w) / 2
-    y = (sh - h) / 2
-    root.geometry('%dx%d+%d+%d' % (w, h, x, y))
-
-    scrollbar = Scrollbar(root)
-    scrollbar.pack(side=RIGHT, fill=Y)
-
-    m = Listbox(root)
-    for e in message:
-        m.insert(END, e[0].name)
-    m.pack(side=LEFT, fill=BOTH)
-    scrollbar.config(command=m.yview())
-
-    # w = Label(root, text=m, width=120, height=10)
-    # w.config(font=('Courier', 18))
-    # w.pack(expand=True)
-    b = Button(root, text="OK", command=root.destroy, width=10)
-    b.pack(side=BOTTOM)
-    mainloop()
 
 
 def enemy_types():
@@ -135,7 +105,7 @@ if __name__ == "__main__":
         nl = '\n'
 
         # Go through one by one till everyones turn util combat is finisched
-        pop_up(initiativeturn)
+        GUI.pop_up(initiativeturn)
         ends = input('Do you wanna end? ').strip()
         if ends == 'y':
             break
