@@ -1,3 +1,4 @@
+import GUI
 import random
 from tkinter import *
 
