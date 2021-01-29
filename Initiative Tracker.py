@@ -46,6 +46,17 @@ def enemyini(initiativebonus):
     return initiative
 
 
+def nameenemy(NoEnemy, Typ):
+    namelist = []
+
+    for enemyname in range(1, int(NoEnemy) + 1):
+        Temp = Typ.name
+        Temp += str(enemyname)
+        new = Enemies(Temp, Typ.initiativebonus)
+        namelist.append(new)
+    return namelist
+
+
 def getinteger(message):
     integer = input(message).strip()
     try:
@@ -76,11 +87,9 @@ if __name__ == "__main__":
 
         for EnemyTyp in enemydic:
             Typ = addenemy(EnemyTyp)
-            for NoEnemy in range(1, int(enemydic[EnemyTyp])+1):
-                Temp = Typ.name
-                Temp += str(NoEnemy)
-                new = Enemies(Temp, Typ.initiativebonus)
-                enemieslist.append(new)
+            newenemy = nameenemy(enemydic[EnemyTyp], Typ)
+            enemieslist.extend(newenemy)
+
 
         # Get and make the initiative dictionary to save every enemy and there initiative
         initiativelist = {}
