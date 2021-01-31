@@ -45,7 +45,7 @@ def enemyini(initiativebonus):
     initiative = roll + initiativebonus
     return initiative
 
-
+# name every enemy for exaple: Goblin1, Goblin, 2 and so on
 def nameenemy(NoEnemy, Typ):
     namelist = []
 
