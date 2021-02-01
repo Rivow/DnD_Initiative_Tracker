@@ -66,6 +66,45 @@ def getinteger(message):
     return integer
 
 
+def main():
+    phase = input('Start')
+    noenemytypes = enemy_types()
+    enemydic = number_per_typ(noenemytypes)
+    enemieslist = []
+
+    for EnemyTyp in enemydic:
+        Typ = addenemy(EnemyTyp)
+        newenemy = nameenemy(enemydic[EnemyTyp], Typ)
+        enemieslist.extend(newenemy)
+
+    # Get and make the initiative dictionary to save every enemy and there initiative
+    initiativelist = {}
+    for x in range(0, len(enemieslist)):
+        initiativelist[enemieslist[x]] = enemyini(enemieslist[x].initiativebonus)
+
+    # Sort and calculate every player initiative and check if roll is valid.
+    for x in listplayers:
+        playerroll = getinteger(f'{x.name} Roll: ')
+        initiativelist[x] = playerroll
+
+    orderddic = sorted(initiativelist.items(), key=lambda kv: (float(kv[1]), str(kv[0])))
+
+    # list of sorted initiatives
+    initiativeturn = []
+
+    for i in orderddic:
+        initiativeturn.append(i)
+
+    # Problem with repeated initiative the sort algorithm choose alphabetacly with the key.
+    initiativeturn.reverse()
+    nl = '\n'
+
+    # Go through one by one till everyones turn util combat is finisched
+    GUI.pop_up(initiativeturn)
+
+
+
+
 if __name__ == "__main__":
     # input all your character data
     jeff = Character('jeff')
@@ -80,41 +119,8 @@ if __name__ == "__main__":
 
     # program loop only quit when input s q
     while True:
-        phase = input('Start')
-        noenemytypes = enemy_types()
-        enemydic = number_per_typ(noenemytypes)
-        enemieslist = []
-
-        for EnemyTyp in enemydic:
-            Typ = addenemy(EnemyTyp)
-            newenemy = nameenemy(enemydic[EnemyTyp], Typ)
-            enemieslist.extend(newenemy)
-
-
-        # Get and make the initiative dictionary to save every enemy and there initiative
-        initiativelist = {}
-        for x in range(0, len(enemieslist)):
-            initiativelist[enemieslist[x]] = enemyini(enemieslist[x].initiativebonus)
-
-        # Sort and calculate every player initiative and check if roll is valid.
-        for x in listplayers:
-            playerroll = getinteger(f'{x.name} Roll: ')
-            initiativelist[x] = playerroll
-
-        orderddic = sorted(initiativelist.items(), key=lambda kv: (float(kv[1]), str(kv[0])))
-
-        # list of sorted initiatives
-        initiativeturn = []
-
-        for i in orderddic:
-            initiativeturn.append(i)
-
-        # Problem with repeated initiative the sort algorithm choose alphabetacly with the key.
-        initiativeturn.reverse()
-        nl = '\n'
-
-        # Go through one by one till everyones turn util combat is finisched
-        GUI.pop_up(initiativeturn)
+        main()
         ends = input('Do you wanna end? ').strip()
         if ends == 'y':
             break
+
