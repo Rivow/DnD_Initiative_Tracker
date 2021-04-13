@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DndInitiativeTracker.iml" filepath="$PROJECT_DIR$/.idea/DndInitiativeTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/InitiativeTrackerD&amp;D.iml" filepath="$PROJECT_DIR$/.idea/InitiativeTrackerD&amp;D.iml" />
     </modules>
   </component>
 </project>
